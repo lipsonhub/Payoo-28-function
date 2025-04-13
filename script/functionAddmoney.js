@@ -10,18 +10,30 @@ const accountNumber=document.getElementById("accountNumber").value;
 
 const mainBalance=getInnerTextByID("main-balance");
 
+const selectBank=document.getElementById("all-bank").value;
+console.log(selectBank)
+
+if(amount<0){
+    alert("amount is invalid,please add positive number");
+    return;
+};
+
+
 if(accountNumber.length === 11){
     if(pin === 1234){
         const sum=mainBalance + amount;
-        document.getElementById("main-balance").innerText=sum;
+        // document.getElementById("main-balance").innerText=sum;
         setInnerText("main-balance",sum);
 
         const container=document.getElementById("history");
-        const p =document.createElement("p");
-        p.innerText=`
-        added ${amount} from ${accountNumber} account
+        const div =document.createElement("div");
+        div.classList.add("bg-red-500")
+        div.innerHTML=`
+        <h1>Added Money from ${selectBank}</h1>
+        <h3>${amount}</h3>
+        <p>account Number: ${accountNumber}</p>
         `;
-        container.appendChild(p);
+        container.appendChild(div);
 
 
     }
@@ -43,6 +55,11 @@ document.getElementById("cashOut-btn").addEventListener("click", function(event)
     const amount=getInputValueById("cashOut-amount");
     const pinNumber=getInputValueById("cashOut-pin");
     const mainBalance=getInnerTextByID("main-balance");
+
+    if(amount>mainBalance){
+        alert("number is invalid,please type correct number");
+        return;
+    }
 
     if(accountNumber.length===11){
         if(pinNumber===1234){
